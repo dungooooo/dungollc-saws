@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SAWS Demo Dashboard</title>
+  style.css
+</head>
+<body>
+  <h1>Welcome to SAWS Demo Dashboard</h1>
+  <div id="userInfo"></div>
+  <div id="features">
+    <!-- You can add mock usage data, charts, or buttons here -->
+  </div>
+
+  https://cdn.posthog.com/posthog.js</script>
+  <script>
+    // Parse query parameters
+    const params = new URLSearchParams(window.location.search);
+    const user = params.get('user');
+    const account = params.get('account');
+
+    // Display user info
+    document.getElementById('userInfo').innerHTML = `
+      <p><strong>User:</strong> ${user}</p>
+      <p><strong>Account ID:</strong> ${account}</p>
+    `;
+
+    // Optional: Continue PostHog tracking
+    posthog.identify(user, {
+      account_id: account,
+      demo_user: true
+    });
+
+    posthog.capture('dashboard_loaded', {
+      user: user,
+      account_id: account
+    });
+  </script>
+</body>
+</html>

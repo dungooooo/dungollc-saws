@@ -20,4 +20,6 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     });
 
     alert('Logged in as ' + user + ' (Account ID: ' + accountId + ')');
+        // Redirect to dashboard.html with user and account info
+        window.location.href = `dashboard.html?user=${encodeURIComponent(user)}&account=${encodeURIComponent(accountId)}`;
 });
