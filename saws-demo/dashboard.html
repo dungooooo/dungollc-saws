@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SAWS Demo Dashboard</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.posthog.com/posthog.js"></script>
 </head>
 <body>
   <h1>Welcome to SAWS Demo Dashboard</h1>
@@ -24,18 +23,28 @@
     document.getElementById('userInfo').innerHTML = `
       <p><strong>User:</strong> ${user}</p>
       <p><strong>Account ID:</strong> ${account}</p>
+        <div id="billInfo">
+          <h2>Latest Bill</h2>
+          <table style="width:100%;border-collapse:collapse;margin-top:10px;">
+            <tr style="background:#f6f8fa;">
+              <th style="text-align:left;padding:8px;border-bottom:1px solid #ddd;">Date</th>
+              <th style="text-align:left;padding:8px;border-bottom:1px solid #ddd;">Amount</th>
+              <th style="text-align:left;padding:8px;border-bottom:1px solid #ddd;">Status</th>
+            </tr>
+            <tr>
+              <td style="padding:8px;border-bottom:1px solid #eee;">2025-08-15</td>
+              <td style="padding:8px;border-bottom:1px solid #eee;">$87.23</td>
+              <td style="padding:8px;border-bottom:1px solid #eee;">Paid</td>
+            </tr>
+            <tr>
+              <td style="padding:8px;border-bottom:1px solid #eee;">2025-07-15</td>
+              <td style="padding:8px;border-bottom:1px solid #eee;">$92.10</td>
+              <td style="padding:8px;border-bottom:1px solid #eee;">Unpaid</td>
+            </tr>
+          </table>
+        </div>
     `;
 
-    // Optional: Continue PostHog tracking
-    posthog.identify(user, {
-      account_id: account,
-      demo_user: true
-    });
-
-    posthog.capture('dashboard_loaded', {
-      user: user,
-      account_id: account
-    });
   </script>
 </body>
 </html>
