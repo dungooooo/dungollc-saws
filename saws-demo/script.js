@@ -1,5 +1,4 @@
-// Initialize PostHog
-posthog.init('phc_demo_key', { api_host: 'https://app.posthog.com' });
+// Initialize PostHog here
 
 document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault();
