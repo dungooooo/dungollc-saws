@@ -1,4 +1,5 @@
 // Initialize PostHog here
+// PostHog code commented out for now
 
 document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -7,16 +8,15 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     var user = selectedOption.value;
     var accountId = selectedOption.getAttribute('data-account');
 
-    // Identify user in PostHog
-    posthog.identify(accountId, {
-        name: user,
-        account_id: accountId
-    });
-    // Track login success event
-    posthog.capture('login_success', {
-        user: user,
-        account_id: accountId
-    });
+    // PostHog tracking commented out for now
+    // posthog.identify(accountId, {
+    //     name: user,
+    //     account_id: accountId
+    // });
+    // posthog.capture('login_success', {
+    //     user: user,
+    //     account_id: accountId
+    // });
 
     alert('Logged in as ' + user + ' (Account ID: ' + accountId + ')');
         // Redirect to dashboard.html with user and account info
