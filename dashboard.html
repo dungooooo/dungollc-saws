@@ -83,5 +83,26 @@
       }
     };
   </script>
+<script>
+    // Place this after all other scripts, at the end of <body>
+    if (!window?.posthog) {
+        console.warn('PostHog must be added to the window object on this page, for this to work. This is normally done in the loaded callback of your posthog init code.')
+    } else {
+        window.posthog.loadToolbar({
+            "action": "ph_authorize",
+            "token": "phc_AAPG4bGlc3lLS5sWb9nRw9xwyhTYKRu0JVhmYTwlk7B",
+            "temporaryToken": "sEpyQ6TdYBZagLduB7IH7V0GTDzzyGTY70SvQ8MeriM",
+            "actionId": null,
+            "experimentId": null,
+            "userIntent": "add-action",
+            "toolbarVersion": "toolbar",
+            "apiURL": "https://us.posthog.com",
+            "dataAttributes": ["data-attr"],
+            "instrument": true,
+            "userEmail": "dungo@dungodigital.io",
+            "distinctId": "p9Agl9BObfmIhbNEZwo3UMogZYFMWJs1KNpMiBPd1oI"
+        });
+    }
+  </script>
 </body>
 </html>
