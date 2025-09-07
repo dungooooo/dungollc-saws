@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,12 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAWS Customer Portal – Demo Login</title>
     <link rel="stylesheet" href="style.css">
-    <!-- PostHog JS CDN -->
 </head>
-<body>
+<body class="login-page">
     <div class="container">
         <h1>SAWS Customer Portal – Demo Login</h1>
-        <form id="loginForm">
+        <form id="loginForm" autocomplete="off">
             <label for="demoUser">Select a Demo User</label>
             <select id="demoUser" name="demoUser">
                 <option value="Monterey" data-account="001101505">Monterey (Account ID: 001101505)</option>
@@ -19,7 +19,21 @@
             </select>
             <button type="submit" id="loginBtn">Login as Selected User</button>
         </form>
+        <div id="loginMsg" style="display:none;margin-top:20px;text-align:center;color:#38a169;font-weight:bold;"></div>
     </div>
-    <script src="script.js"></script>
+    <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var select = document.getElementById('demoUser');
+        var selectedOption = select.options[select.selectedIndex];
+        var user = selectedOption.value;
+        var accountId = selectedOption.getAttribute('data-account');
+        document.getElementById('loginMsg').style.display = 'block';
+        document.getElementById('loginMsg').textContent = 'Logging in as ' + user + ' (Account ID: ' + accountId + ')...';
+        setTimeout(function() {
+            window.location.href = `dashboard.html?user=${encodeURIComponent(user)}&account=${encodeURIComponent(accountId)}`;
+        }, 800);
+    });
+    </script>
 </body>
 </html>

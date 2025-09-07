@@ -7,44 +7,142 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Welcome to SAWS Demo Dashboard</h1>
-  <div id="userInfo"></div>
-  <div id="features">
-    <!-- You can add mock usage data, charts, or buttons here -->
+  <div class="container">
+    <h1>SAWS Demo Dashboard</h1>
+    <div id="userInfo"></div>
+    <div class="bill-section">
+      <h2>Balance Due</h2>
+      <div class="balance-due">$92.10 <span style="color:#e53e3e;font-weight:bold;">(Unpaid)</span></div>
+      <div class="last-payment">Last Payment: $87.23 on 2025-08-15</div>
+      <div class="charges-due">Current Charges Due: <strong>$92.10</strong> <span style="font-size:12px;color:#888;">Any unpaid previous balance is due NOW</span></div>
+      <button id="payNowBtn" class="pay-btn">Pay Now</button>
+    </div>
+    <div id="paymentModal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>Enter Payment Info</h2>
+        <form id="paymentForm">
+          <label>Name on Card</label>
+          <input type="text" required><br>
+          <label>Card Number</label>
+          <input type="text" maxlength="16" required><br>
+          <label>Expiry</label>
+          <input type="text" placeholder="MM/YY" required><br>
+          <label>CVV</label>
+          <input type="text" maxlength="4" required><br>
+          <button type="submit" class="pay-btn">Confirm Payment</button>
+        </form>
+      </div>
+    </div>
+    <div id="confirmation" style="display:none;text-align:center;margin-top:20px;">
+      <h2 style="color:#38a169;">Payment Successful!</h2>
+      <p>Your bill has been paid.</p>
+    </div>
   </div>
-
   <script>
     // Parse query parameters
-    const params = new URLSearchParams(window.location.search);
-    const user = params.get('user');
-    const account = params.get('account');
-
-    // Display user info
+    var params = new URLSearchParams(window.location.search);
+    var user = params.get('user');
+    var account = params.get('account');
     document.getElementById('userInfo').innerHTML = `
-      <p><strong>User:</strong> ${user}</p>
-      <p><strong>Account ID:</strong> ${account}</p>
-        <div id="billInfo">
-          <h2>Latest Bill</h2>
-          <table style="width:100%;border-collapse:collapse;margin-top:10px;">
-            <tr style="background:#f6f8fa;">
-              <th style="text-align:left;padding:8px;border-bottom:1px solid #ddd;">Date</th>
-              <th style="text-align:left;padding:8px;border-bottom:1px solid #ddd;">Amount</th>
-              <th style="text-align:left;padding:8px;border-bottom:1px solid #ddd;">Status</th>
-            </tr>
-            <tr>
-              <td style="padding:8px;border-bottom:1px solid #eee;">2025-08-15</td>
-              <td style="padding:8px;border-bottom:1px solid #eee;">$87.23</td>
-              <td style="padding:8px;border-bottom:1px solid #eee;">Paid</td>
-            </tr>
-            <tr>
-              <td style="padding:8px;border-bottom:1px solid #eee;">2025-07-15</td>
-              <td style="padding:8px;border-bottom:1px solid #eee;">$92.10</td>
-              <td style="padding:8px;border-bottom:1px solid #eee;">Unpaid</td>
-            </tr>
-          </table>
-        </div>
+      <p><strong>User:</strong> ${user ? user : 'Demo User'}</p>
+      <p><strong>Account ID:</strong> ${account ? account : 'N/A'}</p>
     `;
 
+    // Payment modal logic
+    var payBtn = document.getElementById('payNowBtn');
+    var modal = document.getElementById('paymentModal');
+    var closeModal = document.getElementById('closeModal');
+    var paymentForm = document.getElementById('paymentForm');
+    var confirmation = document.getElementById('confirmation');
+
+    payBtn.onclick = function() {
+      modal.style.display = 'block';
+    };
+    closeModal.onclick = function() {
+      modal.style.display = 'none';
+    };
+    paymentForm.onsubmit = function(e) {
+      e.preventDefault();
+      modal.style.display = 'none';
+      confirmation.style.display = 'block';
+      document.querySelector('.balance-due').innerHTML = '$0.00 <span style="color:#38a169;font-weight:bold;">(Paid)</span>';
+      payBtn.style.display = 'none';
+    };
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    };
+  </script>
+</body>
+</html>
+    <h1>SAWS Demo Dashboard</h1>
+    <div id="userInfo"></div>
+    <div class="bill-section">
+      <h2>Balance Due</h2>
+      <div class="balance-due">$92.10 <span style="color:#e53e3e;font-weight:bold;">(Unpaid)</span></div>
+      <div class="last-payment">Last Payment: $87.23 on 2025-08-15</div>
+      <div class="charges-due">Current Charges Due: <strong>$92.10</strong> <span style="font-size:12px;color:#888;">Any unpaid previous balance is due NOW</span></div>
+      <button id="payNowBtn" class="pay-btn">Pay Now</button>
+    </div>
+    <div id="paymentModal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>Enter Payment Info</h2>
+        <form id="paymentForm">
+          <label>Name on Card</label>
+          <input type="text" required><br>
+          <label>Card Number</label>
+          <input type="text" maxlength="16" required><br>
+          <label>Expiry</label>
+          <input type="text" placeholder="MM/YY" required><br>
+          <label>CVV</label>
+          <input type="text" maxlength="4" required><br>
+          <button type="submit" class="pay-btn">Confirm Payment</button>
+        </form>
+      </div>
+    </div>
+    <div id="confirmation" style="display:none;text-align:center;margin-top:20px;">
+      <h2 style="color:#38a169;">Payment Successful!</h2>
+      <p>Your bill has been paid.</p>
+    </div>
+  </div>
+  <script>
+    // Parse query parameters
+    var params = new URLSearchParams(window.location.search);
+    var user = params.get('user');
+    var account = params.get('account');
+    document.getElementById('userInfo').innerHTML = `
+      <p><strong>User:</strong> ${user ? user : 'Demo User'}</p>
+      <p><strong>Account ID:</strong> ${account ? account : 'N/A'}</p>
+    `;
+
+    // Payment modal logic
+    var payBtn = document.getElementById('payNowBtn');
+    var modal = document.getElementById('paymentModal');
+    var closeModal = document.getElementById('closeModal');
+    var paymentForm = document.getElementById('paymentForm');
+    var confirmation = document.getElementById('confirmation');
+
+    payBtn.onclick = function() {
+      modal.style.display = 'block';
+    };
+    closeModal.onclick = function() {
+      modal.style.display = 'none';
+    };
+    paymentForm.onsubmit = function(e) {
+      e.preventDefault();
+      modal.style.display = 'none';
+      confirmation.style.display = 'block';
+      document.querySelector('.balance-due').innerHTML = '$0.00 <span style="color:#38a169;font-weight:bold;">(Paid)</span>';
+      payBtn.style.display = 'none';
+    };
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    };
   </script>
 </body>
 </html>
