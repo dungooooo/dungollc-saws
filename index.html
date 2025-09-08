@@ -53,6 +53,18 @@
             window.location.href = `dashboard.html?user=${encodeURIComponent(user)}&account=${encodeURIComponent(accountId)}`;
         }, 800);
     });
+    posthog.identify(account, { name: user, account_id: account });
+
+  // Track login success
+  posthog.capture('login_success', { user, account });
+
+  // Track account creation or signup (if applicable)
+  posthog.capture('user_signed_up', {
+    user_id: account,
+    role: 'customer',
+    source: 'SAWS Web Portal'
+  });
+
     </script>
 <script>
     // Place this after all other scripts, at the end of <body>
